@@ -1,0 +1,53 @@
+<!-- cal/templates/cal/calendar.html -->
+
+
+{% extends 'events/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+
+<body>
+	<div class="header">
+		<img class="logo" src="{% static '/events/logo.png' %}">
+		<h1>UniCal</h1>
+		<p>University Event Calendar</p>
+		<hr>	
+	</div>
+
+	<div class="clearfix">
+		<a class="btn btn-info right" href="{% url 'calendar' %}?{{ next_month }}"> Next Month </a>
+		<a class="btn btn-info right" href="{% url 'calendar' %}?{{ prev_month }}"> Previous Month </a>
+		
+	</div>
+
+	<div class="split left">
+		{% if clubs %}
+		    <table class="clubTable">
+		    	<tr class="clubTitle">
+		    		<th style="padding:10px">Followed Clubs</th>
+		    	</tr>
+
+		    	{% for club in clubs %}
+		    	<tr class="clubName">
+		    		<th style="padding:10px">{{ club }} </th>
+		    	</tr>
+			    {% endfor %}
+		    </table>
+		{% endif %}
+	</div>
+
+	<div class="split right">
+		<div class = "calendarBlock">
+			{{ calendar }}
+		</div>
+	</div>
+
+
+	
+
+</body>
+
+{% endblock %}

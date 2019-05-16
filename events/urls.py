@@ -1,9 +1,13 @@
 #urls.py
 
 from django.urls import path
-from .views import HomePageView
+
+from django.conf.urls import url
+
+from . import views
+
 
 urlpatterns = [
-   path('', HomePageView.as_view(), name='home')
+	url(r'^calendar/$', views.CalendarView.as_view(), name='calendar')
 ]
 

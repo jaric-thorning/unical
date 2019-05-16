@@ -10,6 +10,9 @@ from django.core.files.storage import FileSystemStorage
 
 # Create your models here.
 
+class Club(models.Model):
+	name = models.CharField(u'Club Name', max_length=100, help_text = u'Name of Club', blank=True, null=True)
+	club_image = models.ImageField(upload_to='images/', max_length=100, blank=False, null=True)
 
 class Event(models.Model):
 	name = models.CharField(u'Event Name', max_length=100, help_text = u'Name of the Event', blank=True, null=True)

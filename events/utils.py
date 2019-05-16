@@ -17,8 +17,8 @@ class EventCalendar(HTMLCalendar):
         events_html = "<ul>"
         for event in events_from_day:
 
-            if(event.club_image):
-                events_html += event.get_absolute_image_url()
+            #if(event.club_image):
+                #events_html += event.get_absolute_image_url()
             
             events_html += event.get_absolute_url() + "<br>"
 
@@ -46,7 +46,7 @@ class EventCalendar(HTMLCalendar):
 
         v = []
         a = v.append
-        a('<table border="0" cellpadding="0" cellspacing="0" class="month">')
+        a('<table border="1" cellpadding="0" cellspacing="0" class="calendar">')
         a('\n')
         a(self.formatmonthname(theyear, themonth, withyear=withyear))
         a('\n')
