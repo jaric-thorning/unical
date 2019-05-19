@@ -1,9 +1,88 @@
 /* cal/static/cal/css/styles.css */
 
+
+.column {
+    width: 95%;
+    margin: auto;
+    box-shadow: 0px 0px 27px -5px rgba(0,0,0,0.75);
+    height: 100vh;
+    padding: 10px;
+
+    background-color: #FFFFFF;
+  } 
+
+
+#searchBar{
+  /*background-color: red;*/
+  /*width: 100%;*/
+  margin-bottom: 20px;
+  width: 90%;
+  align-self: center;
+  height: 40px;   
+}
+
+.miniCalendarEntry{
+  font-family: courier;
+}
+
+#title { 
+  font-family: 'Open Sans', sans-serif; 
+  font-size: 54px; 
+  font-weight: 100; 
+  line-height: 15px; 
+  margin: 30px 0 10px;
+  font-style: italic;
+  padding-top: 10px;
+  color: rgba(222, 43, 49, 1);
+  }
+
+.miniCalendar{
+  padding: 10px;
+  width: 20vw; 
+  height: 20vh; 
+  padding-bottom: 50%; 
+}
+
+#miniCalendarMonth{
+  font-family: courier;
+  font-weight: bold; 
+  font-size: 16px;
+}
+
+#sub-title { 
+  color: #2D2E33; 
+  font-family: 'Lucida Sans', Arial, sans-serif; 
+  font-size: 16px; 
+  line-height: 26px; 
+  text-indent: 30px; 
+  margin: 0; 
+  font-style: italic;
+  color: rgba(241, 148, 92, 1);
+  }
+
+
+  /*a { color: #2D2E33; text-decoration: underline; }*/
+
+
+#container_id{
+  width: 90%;
+  margin: auto; 
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  align-self: center;
+  height: 100vh;
+
+
+}
+
+.clubEntry:hover {
+  background-color: #F7F7F7; 
+}
+
 .logo {
   width: 100px;
   height: 100px;
   float: left;
+  padding-left: 20px; 
 }
 
 .header {
@@ -20,21 +99,20 @@
 
 }
 
-
 .calendar {
-  width: 90%;
-  margin: auto;
   font-size: 10px;
+  float: right;
+  width: 100%
 }
 
 .calendar tr, .calendar td {
-  border: 1px solid black;
+  /*border: 1px solid black;*/
 }
 
 .calendar th {
-  padding: 10px;
-  text-align: center;
-  font-size: 18px;
+  padding: 5px;
+  text-align: left;
+  font-size: 14px;
 }
 
 .calendar td {
@@ -56,83 +134,81 @@ ul {
   padding: 0px 5px 0px 5px;
 }
 
-a {
+/*a {
   color: #17a2b8;
-}
+}*/
 
-.left {
+
+/*
+.split_left {
   left: 0;
   float: left;
   min-width: 200px;
   margin-left: 30px;
-
 }
+
+.split_right {
+  float: right;
+  right: 0;
+}*/
+
+
 
 .noday {
-  background-color: #CCCCCC;
+  background-color: rgba(0,0,0,0.05);
+  /*box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.75);*/
+  /*box-shadow: inset 2px 0px 5px 0px rgba(0,0,0,0.75);*/
+  border: 0px;
 }
 
+
+#siderow{
+  padding-left: 50px; 
+}
 
 .clubTitle{
   height: 10px;
   border: 1px solid black;
 }
 
-
-
-.clubTable{
-  width: 210px;
-  border: 1px solid black;
-  padding: 15px;
-  height: 50px;
-}
-
-.clubName{
-  border: 1px solid black;
-  height: 50px;
-  padding: 30px;
-}
-
-.clubName:hover{
-  background-color: #F7F7F7;
-  
-}
-
-.right {
-  float: right;
-  right: 0;
+#buttonbox {
+  float: right; 
+  padding-right: 40px; 
 }
 
 .btn {
   outline: none;
-  color: black;
-  background-color: transparent;
+  color: white;
+  background-color: rgba(0,0,0,0.25);
   box-shadow: 0 0 0 0;
   width: 100px; 
+  height: 40px; 
   font-size: 10px; 
   margin-left: 10px;
-}
-
-.clearfix {
-  width: 90%;
-  margin: auto;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  float: right;
+  font-style: italic;
 
 }
+
+.btn:hover {
+
+}
+
 
 .calendarBlock {
-  padding: 0px;
+  padding-right: 40px;
 }
 
-body {
+/*body {
   box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  width: 
   margin-left: auto;
   margin-right: auto;
   height: 100vh;
   min-height: 850px;
+  w
   min-width:  950px;
   max-width: 950px;
   align-self: center;
 
-}
+}*/

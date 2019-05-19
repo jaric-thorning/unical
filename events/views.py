@@ -7,6 +7,8 @@ from django.views import generic
 from django.http import HttpResponse
 from django.template import loader
 
+from django import forms
+
 from .models import Event 
 
 import calendar
@@ -16,7 +18,63 @@ from django.utils.safestring import mark_safe
 from .utils import EventCalendar
 
 from .models import Event
+
+
+import json
 # Create your views here.
+
+
+
+def searchEvents(request):
+	if request.is_ajax():
+		q = request.GET.get('term', '')
+		events = Event.objects.filter(name__startswith=q)
+		results = []
+		for event in events:
+			results.append(event.name)
+
+
+		jsonresults = {
+			"results" : results
+		}
+
+		data = json.dumps(jsonresults)
+	
+	else:
+		data = 'fail'
+	
+	mimetype = 'application/json'
+
+
+	print("completed search - returning: {results}")
+	
+	return HttpResponse(data, mimetype)
+
+
+class ClubTable(TemplateView):
+	
+	def get_context_data(self, **kwargs):
+		ctx = super(ClubTable, self).get_context_data(**kwargs)
+		ctx['clubTableHeader'] = ['Followed Clubs',]
+		ctx['clubTableRows'] = [{'name': "UQ Sailing Club",}, {'name': "HMNS",},
+			{'name': "UQ Beach Volleyball",}]
+		return ctx
+
+
+
+class MiniCalendar(TemplateView):
+	
+	def get_context_data(self, **kwargs):
+		ctx = super(MiniCalendar, self).get_context_data(**kwargs)
+		ctx['miniCalendarHeader'] = ['m','t','w','t','f','s','s']
+		ctx['miniCalendarRows'] = [
+		 {'mon': "01",'tue': "02",'wed': "03",'thu': "04",'fri': "05",'sat': "06",'sun': "07",},
+		 {'mon': "08",'tue': "09",'wed': "10",'thu': "11",'fri': "12",'sat': "13",'sun': "14",},
+		 {'mon': "15",'tue': "16",'wed': "17",'thu': "18",'fri': "19",'sat': "20",'sun': "21",},
+		 {'mon': "22",'tue': "23",'wed': "24",'thu': "25",'fri': "26",'sat': "27",'sun': "28",},
+		 {'mon': "29",'tue': "30",'wed': "31",'thu': "  ",'fri': "  ",'sat': "  ",'sun': "  ",}]
+
+		return ctx
 
 
 
@@ -48,11 +106,17 @@ class CalendarView(generic.ListView):
 
 		context['clubs'] = clubs
 
+
+		
+
 		context['calendar'] = mark_safe(html_cal)
 		context['prev_month'] = prev_month(d)
 		context['next_month'] = next_month(d)
 
+		context = {**context, **(ClubTable().get_context_data())}
+		context = {**context, **(MiniCalendar().get_context_data())}
 		return context
+
 
 def get_date(req_day):
 	if req_day:
