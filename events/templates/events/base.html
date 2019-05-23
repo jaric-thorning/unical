@@ -9,6 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <title>UniCal</title>
+  <link rel="shortcut icon" type="image/png" href="{% static '/events/logo.png' %}"/>
 
   {% include 'base/bootstrap_defaults.html' %}
   {% include 'base/js.html' %}
@@ -16,6 +17,12 @@
   {% include 'base/css.html' %}
 
 </head>
+
+<script>
+$(document).ready(function(){
+  {% block jquery %}{% endblock %}
+})
+</script>
 
 <body>
   {% block content %}
