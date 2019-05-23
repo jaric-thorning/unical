@@ -192,8 +192,9 @@ window.onclick = function(event) {
 	<div id="right">	
 
 		<div id='buttonbox'> 
-			<a class="monthButton" href="{% url 'calendar' %}?{{ next_month }}"> Next<br>Month </a>
 			<a class="monthButton" href="{% url 'calendar' %}?{{ prev_month }}"> Previous<br>Month </a>
+			<a class="monthButton" href="{% url 'calendar' %}?{{ next_month }}"> Next<br>Month </a>
+			
 		</div>
 
 
