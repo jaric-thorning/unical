@@ -2,32 +2,48 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
-
 {% block content %}
 <div id = "container_id">
 
-	<div  id="header">
-			<img class="logo" src="{% static '/events/logo.png' %}">
-			<h1 id="title1">UniCal</h1>
-			<p id="sub-title">University Event Calendar</p>
-			<hr>	
+	<div id="header">
+		<a href="/calendar"><img class="logo" src="{% static '/events/logo.png' %}"></a>
+		<div class="nav">
+			<h1 id="title1">unical</h1>
 		</div>
+	<hr id="headhr">
+	</div>
+	
 
+
+	<img id="eventImg" src="{{ event.event_image.url }}"><br>
 
 	<div id="clubInfo">
-		<img src="{{ event.club_image.url }}">
-		<h2 id="eventName">{{ event.name }}</h2>
-		<h3 id="eventClub">{{ event.club.name }}</h2>
-		<p class="eventInfo">Date - {{ event.day }}</p>
-		<p class="eventInfo">Start Time - {{ event.start_time }}</p>
-		<p class="eventInfo">End Time - {{ event.end_time }}</p>
-		<p class="eventInfo">{{ event.description }}</p>
+		<div>
+			<p style="float: left;"><img class="clubIcon" src="{{ event.club.club_image.url }}"></p>
+			<h2 id="eventName">{{ event.name }}</h2>
+			<p class="eventInfo">{{ event.club.name }}</p>
+		</div><br>
+		<hr>
+
+		
+		
+		<img class="icon" src="{% static '/events/clock.png' %}"><p class="eventInfo">{{ event.day }} at {{ event.start_time }} - {{ event.end_time }}</p><br>
+		<img class="icon" src="{% static '/events/pin.png' %}"><p class="eventInfo">{{ event.location }}</p><br>
+		{% if event.price > 0 %}
+			<img class="icon" src="{% static '/events/ticket.png' %}"><p class="eventInfo">${{ event.price }}</p><br>
+		{% else %}
+			<img class="icon" src="{% static '/events/ticket.png' %}"><p class="eventInfo">Free</p><br>
+		{% endif %}
+		<img class="icon" src="{% static '/events/fb.png' %}"><p class="eventInfo"><a href="{{ event.fb }}">{{ event.fb }}</a></p><br>
+
+		<hr>
+		<h2>About</h2>
+		<!-- This is super unsafe... -->
+		{{ event.description | safe }} 
+
+
 
 	</div>
-
-
-	
 
 </div>
 {% endblock %}

@@ -1,13 +1,9 @@
-<!-- cal/templates/cal/calendar.html -->
-
-
 {% extends 'base.html' %}
 {% load static %}
 
 
 <script>
 {% block jquery %}
-
 
 $('#searchBar').each(function() {
    var elem = $(this);
@@ -23,7 +19,6 @@ $('#searchBar').each(function() {
        elem.data('oldVal', elem.val());
 
        console.log(elem.val())
-
        
        var results = []
 
@@ -48,10 +43,6 @@ $('#searchBar').each(function() {
 		        console.log(error_data)
 		    }
 		})
-
-
-       
-
 
      }
    });
@@ -95,17 +86,22 @@ window.onclick = function(event) {
 </script>
 
 
+
+
 {% block content %}
 
 <div id = "container_id">
 
-	<div  id="header">
-
-		<img class="logo" src="{% static '/events/logo.png' %}">
-		<h1 id="title">UniCal</h1>
-		<p id="sub-title">University Event Calendar</p>
-		<hr>	
+	<div id="header">
+		<a href="/calendar"><img class="logo" src="{% static '/events/logo.png' %}"></a>
+		<div class="nav">
+			<h1 id="title1">unical</h1>
+		</div>
+	<hr id="headhr">
 	</div>
+	
+
+
 
 
 	<div id="left">
@@ -195,10 +191,10 @@ window.onclick = function(event) {
 
 	<div id="right">	
 
-		<dir id='buttonbox'> 
+		<div id='buttonbox'> 
 			<a class="monthButton" href="{% url 'calendar' %}?{{ next_month }}"> Next<br>Month </a>
 			<a class="monthButton" href="{% url 'calendar' %}?{{ prev_month }}"> Previous<br>Month </a>
-		</dir>
+		</div>
 
 
 		<div class = "calendarBlock">
@@ -207,8 +203,8 @@ window.onclick = function(event) {
 
 	</div>
 
+	<hr>
 
-<hr>
 </div>
 
 {% endblock %}

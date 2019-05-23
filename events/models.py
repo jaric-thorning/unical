@@ -8,6 +8,7 @@ from django.urls import reverse
 
 from django.core.files.storage import FileSystemStorage
 
+
 # Create your models here.
 
 class Club(models.Model):
@@ -17,13 +18,15 @@ class Club(models.Model):
 
 class Event(models.Model):
 	id = models.AutoField(primary_key=True)
+	club = models.ForeignKey(Club, on_delete=models.CASCADE, blank=True, null=True)
 	name = models.CharField(u'Event Name', max_length=100, help_text = u'Name of the Event', blank=True, null=False)
 	day = models.DateField(u'Event Date', help_text = u'Day of the event')
 	start_time = models.TimeField(u'Start Time', help_text=u'Starting time of event')
 	end_time = models.TimeField(u'Finish Time', help_text=u'Finishing time of event')
-	club = models.ForeignKey(Club, on_delete=models.CASCADE, blank=True, null=True)
-	
-	club_image = models.ImageField(upload_to='images/', max_length=100, blank=False, null=True)
+	location = models.CharField(u'Location', max_length=100, help_text = u'Location', blank=True, null=False)
+	price = models.DecimalField(u'Price', max_digits=6, decimal_places=2, help_text=u'Price')
+	fb = models.CharField(u'Facebook Event', max_length=100, help_text = u'Event Link', blank=True, null=False)
+	event_image = models.ImageField(upload_to='images/', max_length=100, blank=False, null=True)
 	description = models.TextField(u'Description', help_text=u'Description', blank=True, null=True)
 
 	class Meta:
