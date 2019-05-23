@@ -62,6 +62,35 @@ function updateText(text){
 }
 
 
+// POP UP BOX
+
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+
 {% endblock %}
 </script>
 
@@ -70,112 +99,116 @@ function updateText(text){
 
 <div id = "container_id">
 
-	<div class="row">
-		<div class='col-lg-12' id="header">
+	<div  id="header">
 
-			<img class="logo" src="{% static '/events/logo.png' %}">
-			<h1 id="title">UniCal</h1>
-			<p id="sub-title">University Event Calendar</p>
-			<hr>	
+		<img class="logo" src="{% static '/events/logo.png' %}">
+		<h1 id="title">UniCal</h1>
+		<p id="sub-title">University Event Calendar</p>
+		<hr>	
+	</div>
+
+
+	<div id="left">
+
+		<div id=miniCalendar>
+
+			<p id="miniCalendarMonth" style="float: left;">{{ miniCalendarMonth }}</p>
+
+			<div id='minibuttonbox' style="float: right;"> 
+				<a class="minibtn" href="{% url 'calendar' %}?{{ prev_month }}"><</a>
+				<a class="minibtn" href="{% url 'calendar' %}?{{ next_month }}">></a>
+			</div>
+
+			<table id="miniCalendarTable">
+			    <thead>
+			        <tr class="miniCalendarEntry">
+			            {% for k in miniCalendarHeader %}
+			            <th>{{k}}</th>
+			            {% endfor %}
+			        </tr>
+			    </thead>
+			    <tbody>
+			        {% for r in miniCalendarRows %}
+			            <tr class="miniCalendarEntry">
+			                <td class='date'>{{r.mon}}</td>
+			                <td class='date'>{{r.tue}}</td>
+			                <td class='date'>{{r.wed}}</td>
+			                <td class='date'>{{r.thu}}</td>
+			                <td class='date'>{{r.fri}}</td>
+			                <td class='date'>{{r.sat}}</td>
+			                <td class='date'>{{r.sun}}</td>
+			            </tr>
+			        {% endfor %}
+			    </tbody>
+			</table>
+
 		</div>
-	</div>	
-
-	<div class="row">
-		<div class='col-lg-3' id="siderow">
-
-			<div class="row">
-				<div class='col-lg-12'>
-					<p id="miniCalendarMonth">May</p>
-					<table class="miniCalendar">
-					    <thead>
-					        <tr class="miniCalendarEntry">
-					            {% for k in miniCalendarHeader %}
-					            <th>{{k}}</th>
-					            {% endfor %}
-					        </tr>
-					    </thead>
-					    <tbody>
-					        {% for r in miniCalendarRows %}
-					            <tr class="miniCalendarEntry">
-					                <td>{{r.mon}}</td>
-					                <td>{{r.tue}}</td>
-					                <td>{{r.wed}}</td>
-					                <td>{{r.thu}}</td>
-					                <td>{{r.fri}}</td>
-					                <td>{{r.sat}}</td>
-					                <td>{{r.sun}}</td>
-					            </tr>
-					        {% endfor %}
-					    </tbody>
-					</table>
-
-
-				</div>
-			</div>
-
-			<hr>
-
-			<div class="row">
-				<div class='col-lg-12'>
-					<div class="ui-widget">
-					  <input id="searchBar" placeholder="Search Clubs">
-					</div>
-				</div>
-			</div>  
-
-			<div class="row">
-				<div class='col-lg-12'>
-					<p id=result>Test </p>
-				</div>
-			</div>
 		
+		<hr>
 
-			<div class="row">
-				<div class='col-lg-12'>
-					<table class="table">
-					    <thead>
-					        <tr>
-					            {% for k in clubTableHeader %}
-					            <th>{{k}}</th>
-					            {% endfor %}
-					        </tr>
-					    </thead>
-					    <tbody>
-					        {% for r in clubTableRows %}
-					            <tr class="clubEntry">
-					                <td>{{r.name}}</td>
-					            </tr>
-					        {% endfor %}
-					    </tbody>
-					</table>
+	
+		<div class="ui-widget">
+			<input id="searchBar" placeholder="Search Clubs">
+		</div>
 
 
-				</div>
-			</div>
+			
+		<p id=result>Test </p>
+	
+	
+		<table class="table">
+		    <thead>
+		        <tr>
+		            {% for k in clubTableHeader %}
+		            <th>{{k}}</th>
+		            {% endfor %}
+		        </tr>
+		    </thead>
+		    <tbody>
+		        {% for r in clubTableRows %}
+		            <tr class="clubEntry">
+		                <td id="myBtn2">{{r.name}}</td>
+		            </tr>
+		        {% endfor %}
+		    </tbody>
+		</table>
+
+
+		<!-- Trigger/Open The Modal -->
+		<button id="myBtn">Open Modal</button>
+
+		<!-- The Modal -->
+		<div id="myModal" class="modal">
+
+		  <!-- Modal content -->
+		  <div class="modal-content">
+		    <span class="close">&times;</span>
+		    <p>Some text in the Modal..</p>
+		  </div>
 
 		</div>
 
-		<div class='col-lg-9'>
-			
-			<div class="row">
-				<div class = "calendarBlock">
-					{{ calendar }}
-				</div>
-			</div>
 
-			<div class="row">
-	
-				<dir id='buttonbox'> 
-					<a class="btn" href="{% url 'calendar' %}?{{ next_month }}"> Next<br>Month </a>
-					<a class="btn" href="{% url 'calendar' %}?{{ prev_month }}"> Previous<br>Month </a>
-				</dir>
 
-			</div>
+	</div>
 
+
+	<div id="right">	
+
+		<dir id='buttonbox'> 
+			<a class="monthButton" href="{% url 'calendar' %}?{{ next_month }}"> Next<br>Month </a>
+			<a class="monthButton" href="{% url 'calendar' %}?{{ prev_month }}"> Previous<br>Month </a>
+		</dir>
+
+
+		<div class = "calendarBlock">
+			{{ calendar }}
 		</div>
 
 	</div>
 
+
+<hr>
 </div>
 
 {% endblock %}

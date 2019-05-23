@@ -11,17 +11,20 @@ from django.core.files.storage import FileSystemStorage
 # Create your models here.
 
 class Club(models.Model):
-	name = models.CharField(u'Club Name', max_length=100, help_text = u'Name of Club', blank=True, null=True)
+	
+	name = models.CharField(u'Club Name', primary_key=True, max_length=100, help_text = u'Name of Club', blank=True, null=False)
 	club_image = models.ImageField(upload_to='images/', max_length=100, blank=False, null=True)
 
 class Event(models.Model):
-	name = models.CharField(u'Event Name', max_length=100, help_text = u'Name of the Event', blank=True, null=True)
+	id = models.AutoField(primary_key=True)
+	name = models.CharField(u'Event Name', max_length=100, help_text = u'Name of the Event', blank=True, null=False)
 	day = models.DateField(u'Event Date', help_text = u'Day of the event')
 	start_time = models.TimeField(u'Start Time', help_text=u'Starting time of event')
 	end_time = models.TimeField(u'Finish Time', help_text=u'Finishing time of event')
-	club = models.CharField(u'Club Name', max_length=100, help_text=u'Club hosting event', blank=True, null=True)
+	club = models.ForeignKey(Club, on_delete=models.CASCADE, blank=True, null=True)
+	
 	club_image = models.ImageField(upload_to='images/', max_length=100, blank=False, null=True)
-	notes = models.TextField(u'Textual Notes', help_text=u'Textual Notes', blank=True, null=True)
+	description = models.TextField(u'Description', help_text=u'Description', blank=True, null=True)
 
 	class Meta:
 		verbose_name = u'Scheduling'
@@ -46,8 +49,10 @@ class Event(models.Model):
 		return u'<img src="%s" width="30" height="30" style="padding-right: 5px" alt="ALT">' % (url)
 
 	def get_absolute_url(self):
-		url = reverse('admin:%s_%s_change' % (self._meta.app_label, self._meta.model_name), args=[self.id])
-		return u'<a href="%s">%s</a>' % (url, str(self.club) + ' - ' + str(self.name))
+		# url = reverse('admin:%s_%s_change' % (self._meta.app_label, self._meta.model_name), args=[self.id])
+
+		url = f"/event/?event={self.id}"
+		return u'<a href="%s">%s</a>' % (url, str(self.club.name) + ' - ' + str(self.name))
 
 	def clean(self):
 		if self.end_time <= self.start_time:

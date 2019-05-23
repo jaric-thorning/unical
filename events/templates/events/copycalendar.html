@@ -1,0 +1,202 @@
+<!-- cal/templates/cal/calendar.html -->
+
+
+{% extends 'base.html' %}
+{% load static %}
+
+
+<script>
+{% block jquery %}
+
+
+$('#searchBar').each(function() {
+   var elem = $(this);
+
+   // Save current value of element
+   elem.data('oldVal', elem.val());
+
+   // Look for changes in the value
+   elem.bind("propertychange change click keyup input paste", function(event){
+      // If value has changed...
+      if (elem.data('oldVal') != elem.val()) {
+       // Updated stored value
+       elem.data('oldVal', elem.val());
+
+       console.log(elem.val())
+
+       
+       var results = []
+
+       var endpoint = '/api/searchEvents?term=' + elem.val()
+
+       $.ajax({
+		    method: "GET",
+		    url: endpoint,
+		    dataType: 'json', 
+		    success: function(data){
+		        results = data.results
+		        console.log(results[0])
+		        if(results.length > 0){
+		        	updateText(results[0])
+		    	} else {
+		    		updateText("No result")
+		    	}
+
+		    },
+		    error: function(error_data){
+		        console.log("error")
+		        console.log(error_data)
+		    }
+		})
+
+
+       
+
+
+     }
+   });
+ });
+
+function updateText(text){
+	document.getElementById("result").innerHTML = text
+}
+
+
+{% endblock %}
+</script>
+
+
+{% block content %}
+
+<div id = "container_id">
+
+	<div class="row">
+		<div class='col-lg-12' id="header">
+
+			<img class="logo" src="{% static '/events/logo.png' %}">
+			<h1 id="title">UniCal</h1>
+			<p id="sub-title">University Event Calendar</p>
+			<hr>	
+		</div>
+	</div>	
+
+	<div class="row">
+		<div class='col-lg-3' id="siderow">
+
+			<div class="row">
+				<div class='col-lg-12'>
+					<div class="row">
+
+							<p id="miniCalendarMonth" style="float: left;">{{ miniCalendarMonth }}</p>
+							<dir id='minibuttonbox' style="float: right;"> 
+								<a class="minibtn" href="{% url 'calendar' %}?{{ prev_month }}"><</a>
+								<a class="minibtn" href="{% url 'calendar' %}?{{ next_month }}">></a>
+							</dir>
+					</div>
+
+					<table class="miniCalendar">
+					    <thead>
+					        <tr class="miniCalendarEntry">
+					            {% for k in miniCalendarHeader %}
+					            <th>{{k}}</th>
+					            {% endfor %}
+					        </tr>
+					    </thead>
+					    <tbody>
+					        {% for r in miniCalendarRows %}
+					            <tr class="miniCalendarEntry">
+					                <td class='date'>{{r.mon}}</td>
+					                <td class='date'>{{r.tue}}</td>
+					                <td class='date'>{{r.wed}}</td>
+					                <td class='date'>{{r.thu}}</td>
+					                <td class='date'>{{r.fri}}</td>
+					                <td class='date'>{{r.sat}}</td>
+					                <td class='date'>{{r.sun}}</td>
+					            </tr>
+					        {% endfor %}
+					    </tbody>
+					</table>
+
+
+				</div>
+			</div>
+
+			<hr>
+
+			<div class="row">
+				<div class='col-lg-12'>
+					<div class="ui-widget">
+					  <input id="searchBar" placeholder="Search Clubs">
+					</div>
+				</div>
+			</div>  
+
+			<div class="row">
+				<div class='col-lg-12'>
+					<p id=result>Test </p>
+				</div>
+			</div>
+		
+
+			<div class="row">
+				<div class='col-lg-12'>
+					<table class="table">
+					    <thead>
+					        <tr>
+					            {% for k in clubTableHeader %}
+					            <th>{{k}}</th>
+					            {% endfor %}
+					        </tr>
+					    </thead>
+					    <tbody>
+					        {% for r in clubTableRows %}
+					            <tr class="clubEntry">
+					                <td>{{r.name}}</td>
+					            </tr>
+					        {% endfor %}
+					    </tbody>
+					</table>
+
+
+				</div>
+			</div>
+
+		</div>
+
+		<div class='col-lg-9'>
+			
+			<div class="row">
+				<div class="dropdown show" style="float: left;">
+					<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Dropdown link
+					</a>
+
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						<a class="dropdown-item" href="#">Action</a>
+						<a class="dropdown-item" href="#">Another action</a>
+						<a class="dropdown-item" href="#">Something else here</a>
+					</div>
+				</div>
+
+				<dir id='buttonbox'> 
+					<a class="btn" href="{% url 'calendar' %}?{{ next_month }}"> Next<br>Month </a>
+					<a class="btn" href="{% url 'calendar' %}?{{ prev_month }}"> Previous<br>Month </a>
+				</dir>
+
+			</div>
+
+			<div class="row">
+				<div class = "calendarBlock">
+					{{ calendar }}
+				</div>
+			</div>
+
+			
+
+		</div>
+
+	</div>
+<hr>
+</div>
+
+{% endblock %}

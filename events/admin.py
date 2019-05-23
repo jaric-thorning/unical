@@ -8,6 +8,7 @@ from django.contrib import admin
 
 
 from .models import Event 
+from .models import Club 
 
 import datetime
 import calendar
@@ -16,8 +17,20 @@ from calendar import HTMLCalendar
 from django.utils.safestring import mark_safe
 from .utils import EventCalendar
 
+
+class ClubAdmin(admin.ModelAdmin):
+	list_display = ['name',]
+	change_list_template = 'admin/clubs/change_list.html'
+
+
+	def changelist_view(self, request, extra_context=None):
+		return super(ClubAdmin, self).changelist_view(request, extra_context)
+
+
+
+
 class EventAdmin(admin.ModelAdmin):
-	list_display = ['name', 'club', 'day', 'start_time', 'end_time', 'notes']
+	list_display = ['name', 'club', 'day', 'start_time', 'end_time', 'description']
 	change_list_template = 'admin/events/change_list.html'
 
 	def changelist_view(self, request, extra_context=None):
@@ -58,3 +71,4 @@ class EventAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Event, EventAdmin)
+admin.site.register(Club, ClubAdmin)

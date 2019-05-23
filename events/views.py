@@ -24,6 +24,7 @@ import json
 # Create your views here.
 
 
+from django_popup_view_field.registry import registry_popup_view
 
 def searchEvents(request):
 	if request.is_ajax():
@@ -64,17 +65,77 @@ class ClubTable(TemplateView):
 
 class MiniCalendar(TemplateView):
 	
-	def get_context_data(self, **kwargs):
+	def get_context_data(self,d, **kwargs):
+		date = get_date(d) 
 		ctx = super(MiniCalendar, self).get_context_data(**kwargs)
+		ctx['miniCalendarMonth'] = str(date.strftime('%B'))
 		ctx['miniCalendarHeader'] = ['m','t','w','t','f','s','s']
-		ctx['miniCalendarRows'] = [
-		 {'mon': "01",'tue': "02",'wed': "03",'thu': "04",'fri': "05",'sat': "06",'sun': "07",},
-		 {'mon': "08",'tue': "09",'wed': "10",'thu': "11",'fri': "12",'sat': "13",'sun': "14",},
-		 {'mon': "15",'tue': "16",'wed': "17",'thu': "18",'fri': "19",'sat': "20",'sun': "21",},
-		 {'mon': "22",'tue': "23",'wed': "24",'thu': "25",'fri': "26",'sat': "27",'sun': "28",},
-		 {'mon': "29",'tue': "30",'wed': "31",'thu': "  ",'fri': "  ",'sat': "  ",'sun': "  ",}]
+		ctx['miniCalendarRows'] = self.get_calendarRows(date)
 
 		return ctx
+
+
+	def get_calendarRows(self,d):
+		first = d.replace(day=1)
+		days_in_month = calendar.monthrange(d.year, d.month)[1]
+		index = first.weekday()
+
+
+		rows = [[]]
+		current_row = 0
+
+		#pad start
+		for i in range(0, index):
+			rows[current_row].append("  ")
+		#fill dates
+		for i in range(1, days_in_month + 1):
+			if(index >= 7):
+				index = 0
+				current_row += 1
+				rows.append([])
+
+			rows[current_row].append(str(i).zfill(2))
+			index += 1
+
+		#pad end
+		for i in range(index, 7):
+			rows[current_row].append("  ")
+
+
+
+		rows_json = []
+
+		# print(rows)
+		for row in rows:
+			rows_json.append({'mon': row[0],'tue': row[1],'wed': row[2],
+				'thu': row[3],'fri': row[4],'sat': row[5],'sun': row[6],})
+
+	
+
+		return(rows_json)
+
+
+class EventView(generic.ListView):
+	model = Event
+	template_name = 'events/event.html'
+
+	def get_context_data(self, **kwargs):
+
+		context = super().get_context_data(**kwargs)
+
+		try:
+			event = Event.objects.filter(id=self.request.GET.get('event', None))[0]
+			context['event'] = event
+			context['name'] = event.name
+
+		except:
+			context['name'] = "Couldn't find event!"
+		
+		
+		return context
+
+
+
 
 
 
@@ -114,7 +175,7 @@ class CalendarView(generic.ListView):
 		context['next_month'] = next_month(d)
 
 		context = {**context, **(ClubTable().get_context_data())}
-		context = {**context, **(MiniCalendar().get_context_data())}
+		context = {**context, **(MiniCalendar().get_context_data(self.request.GET.get('month', None)))}
 		return context
 
 

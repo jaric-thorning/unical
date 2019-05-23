@@ -1,0 +1,33 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+<div id = "container_id">
+
+	<div  id="header">
+			<img class="logo" src="{% static '/events/logo.png' %}">
+			<h1 id="title1">UniCal</h1>
+			<p id="sub-title">University Event Calendar</p>
+			<hr>	
+		</div>
+
+
+	<div id="clubInfo">
+		<img src="{{ event.club_image.url }}">
+		<h2 id="eventName">{{ event.name }}</h2>
+		<h3 id="eventClub">{{ event.club.name }}</h2>
+		<p class="eventInfo">Date - {{ event.day }}</p>
+		<p class="eventInfo">Start Time - {{ event.start_time }}</p>
+		<p class="eventInfo">End Time - {{ event.end_time }}</p>
+		<p class="eventInfo">{{ event.description }}</p>
+
+	</div>
+
+
+	
+
+</div>
+{% endblock %}
