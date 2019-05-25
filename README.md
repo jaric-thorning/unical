@@ -7,7 +7,7 @@ Redacted settings.py for security.
 
 # Todo
 
-- [ ] Add back button to event page
+- [X] Add back button to event page
 - [ ] Add club info page
 - [ ] Add filter by buttons
 - [ ] Add results handling for club search

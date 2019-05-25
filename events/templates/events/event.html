@@ -3,6 +3,19 @@
 {% load static %}
 
 {% block content %}
+
+
+<script>
+{% block jquery %}
+
+function goBack() {
+  window.history.back();
+}
+
+{% endblock %}
+</script>
+
+
 <div id = "container_id">
 
 	<div id="header">
@@ -14,6 +27,8 @@
 	</div>
 	
 
+
+	<button onclick="goBack()" id="backBtn">Back to Calendar</button>
 
 	<img id="eventImg" src="{{ event.event_image.url }}"><br>
 

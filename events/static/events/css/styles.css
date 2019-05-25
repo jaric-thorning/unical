@@ -76,6 +76,25 @@ body {
 
 }
 
+#backBtn{
+  margin: 10px;
+  background-color: white;
+  color: #008CBA;
+  border: 2px solid #008CBA;
+
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  padding: 5px; 
+  border-radius: 5px; 
+}
+
+#backBtn:hover{
+  margin: 10px;
+  background-color: #008CBA;
+  color: white;
+  border: 2px solid #008CBA;
+}
+
 .nav li {
   float: left;
 }
