@@ -148,8 +148,8 @@ body {
 }
 
 .clubIcon {
-  height: 60px;
-  width: 60px;
+  height: 70px;
+  width: 70px;
   display: inline; 
   margin-right: 10px; 
 }
@@ -158,12 +158,19 @@ body {
   display: inline;
 }
 
+#description{
+  white-space: pre-line;
+}
 
-
+#eventName{
+margin: 0;
+padding-top: 10px;  
+}
 
 #clubInfo{
   padding-left: 20px; 
 }
+
 #left{
   float: left;
   width: 25%;

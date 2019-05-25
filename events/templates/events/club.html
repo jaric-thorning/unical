@@ -1,0 +1,63 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<script>
+{% block jquery %}
+
+function goBack() {
+  window.history.back();
+}
+
+{% endblock %}
+</script>
+
+
+<div id = "container_id">
+
+	<div id="header">
+		<a href="/calendar"><img class="logo" src="{% static '/events/logo.png' %}"></a>
+		<div class="nav">
+			<h1 id="title1">unical</h1>
+		</div>
+	<hr id="headhr">
+	</div>
+	
+
+
+	<button onclick="goBack()" id="backBtn">< Back</button>
+
+	<!-- <div id="clubInfo"> -->
+		<div>
+			<p style="float: left;"><img class="clubIcon" src="{{ club.club_image.url }}"></p>
+			<h2 id="eventName">{{ club.name }}</h2>
+			<img class="icon" src="{% static '/events/pin.png' %}"><p class="eventInfo">{{club.location }}</p>
+		<!-- </div><br> -->
+		
+
+	</div>
+	<img id="eventImg" src="{{ club.cover_image.url }}"><br>	
+	<hr>
+	<div id="clubInfo">
+		<img class="icon" src="{% static '/events/fb.png' %}"><p class="eventInfo"><a href="https://www.facebook.com/{{ club.fb }}">{{ club.fb }}</a></p><br>
+		<img class="icon" src="{% static '/events/web.png' %}"><p class="eventInfo"><a href="{{ club.web }}">{{ club.web }}</a></p><br>
+		<img class="icon" src="{% static '/events/instagram.png' %}"><p class="eventInfo"><a href="https://www.instagram.com/{{ club.instagram }}">@{{ club.instagram }}</a></p><br>
+		<img class="icon" src="{% static '/events/email.png' %}"><p class="eventInfo"><a href="mailto:{{ club.email }}">{{ club.email }}</a></p><br>
+		<!-- <img class="icon" src="{% static '/events/fb.png' %}"><p class="eventInfo"><a href="{{ club.fb }}">{{ club.fb }}</a></p><br> -->
+
+		<hr>
+
+		<h2>About</h2>
+		<p id = "description">{{ club.description }} </p>
+
+	</div>
+
+	
+
+
+
+</div>
+{% endblock %}

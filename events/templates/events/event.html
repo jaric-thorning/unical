@@ -28,20 +28,20 @@ function goBack() {
 	
 
 
-	<button onclick="goBack()" id="backBtn">Back to Calendar</button>
+	<button onclick="goBack()" id="backBtn">< Back</button>
 
-	<img id="eventImg" src="{{ event.event_image.url }}"><br>
-
-	<div id="clubInfo">
+	<!-- <div id="clubInfo"> -->
 		<div>
 			<p style="float: left;"><img class="clubIcon" src="{{ event.club.club_image.url }}"></p>
 			<h2 id="eventName">{{ event.name }}</h2>
-			<p class="eventInfo">{{ event.club.name }}</p>
-		</div><br>
-		<hr>
+			<p class="eventInfo"><a href="/club/?club={{event.club.name}}">{{ event.club.name }}</a></p>
+		<!-- </div><br> -->
+		
 
-		
-		
+	</div>
+	<img id="eventImg" src="{{ event.event_image.url }}"><br>	
+	<hr>
+	<div id="clubInfo">
 		<img class="icon" src="{% static '/events/clock.png' %}"><p class="eventInfo">{{ event.day }} at {{ event.start_time }} - {{ event.end_time }}</p><br>
 		<img class="icon" src="{% static '/events/pin.png' %}"><p class="eventInfo">{{ event.location }}</p><br>
 		{% if event.price > 0 %}
@@ -52,13 +52,13 @@ function goBack() {
 		<img class="icon" src="{% static '/events/fb.png' %}"><p class="eventInfo"><a href="{{ event.fb }}">{{ event.fb }}</a></p><br>
 
 		<hr>
+
 		<h2>About</h2>
-		<!-- This is super unsafe... -->
-		{{ event.description | safe }} 
-
-
-
+		<p id = "description">{{ event.description }} </p>
 	</div>
+
+	
+	
 
 </div>
 {% endblock %}

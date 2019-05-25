@@ -12,9 +12,17 @@ from django.core.files.storage import FileSystemStorage
 # Create your models here.
 
 class Club(models.Model):
-	
+
 	name = models.CharField(u'Club Name', primary_key=True, max_length=100, help_text = u'Name of Club', blank=True, null=False)
 	club_image = models.ImageField(upload_to='images/', max_length=100, blank=False, null=True)
+	cover_image = models.ImageField(upload_to='images/', max_length=100, blank=False, null=True)
+	description = models.TextField(u'Description', help_text=u'Description', blank=True, null=True)
+	fb = models.CharField(u'Facebook Page', max_length=100, help_text = u'Page Link - https://www.facebook.com/#####', blank=True, null=False)
+	instagram = models.CharField(u'Instagram Page', max_length=100, help_text = u'Instagram Link - https://www.instagram.com/#####', blank=True, null=False)
+	location = models.CharField(u'Location', max_length=100, help_text = u'Club Location', blank=True, null=False)
+	web = models.CharField(u'Website', max_length=100, help_text = u'Website Link', blank=True, null=False)
+	email = models.CharField(u'Email', max_length=100, help_text = u'Email Link', blank=True, null=False)
+
 
 class Event(models.Model):
 	id = models.AutoField(primary_key=True)

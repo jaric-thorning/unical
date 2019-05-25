@@ -11,5 +11,6 @@ urlpatterns = [
 	url(r'^calendar/$', views.CalendarView.as_view(), name='calendar'),
 	url(r'^api/searchEvents', views.searchEvents, name='searchEvents'),
 	url(r'^event/$', views.EventView.as_view(), name='event'),
+	url(r'^club/$', views.ClubView.as_view(), name='club'),
 ]
 

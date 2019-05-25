@@ -11,6 +11,8 @@ from django import forms
 
 from .models import Event 
 
+from django.http import Http404
+
 import calendar
 from django.urls import reverse
 from calendar import HTMLCalendar
@@ -18,13 +20,20 @@ from django.utils.safestring import mark_safe
 from .utils import EventCalendar
 
 from .models import Event
-
+from .models import Club
 
 import json
+
+import logging
 # Create your views here.
 
 
 from django_popup_view_field.registry import registry_popup_view
+
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
+
 
 def searchEvents(request):
 	if request.is_ajax():
@@ -124,17 +133,35 @@ class EventView(generic.ListView):
 		context = super().get_context_data(**kwargs)
 
 		try:
+
 			event = Event.objects.filter(id=self.request.GET.get('event', None))[0]
 			context['event'] = event
-			context['name'] = event.name
 
 		except:
-			context['name'] = "Couldn't find event!"
+			raise Http404("Event does not exist")
 		
 		
 		return context
 
 
+
+
+class ClubView(generic.ListView):
+	model = Club
+	template_name = 'events/club.html'
+
+	def get_context_data(self, **kwargs):
+
+		context = super().get_context_data(**kwargs)
+		
+		try:
+			club = Club.objects.filter(name=self.request.GET.get('club', None).replace("%20", " "))[0]
+			context['club'] = club
+
+		except Exception as e:
+			raise Http404(f"Club does not exist")
+		
+		return context
 
 
 
