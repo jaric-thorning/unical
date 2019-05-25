@@ -38,15 +38,26 @@ logger = logging.getLogger(__name__)
 def searchEvents(request):
 	if request.is_ajax():
 		q = request.GET.get('term', '')
-		events = Event.objects.filter(name__startswith=q)
-		results = []
+		events = Event.objects.filter(name__icontains=q)
+		names = []
+		clubs = []
+		img_ulrs = []
+		datetimes =  []
+
 		for event in events:
-			results.append(event.name)
+			names.append(event.name)
+			clubs.append(event.club.name)
+			img_ulrs.append(event.club.club_image.url)
+			datetimes.append(f"{event.day} - {event.start_time} - {event.end_time}")
 
 
 		jsonresults = {
-			"results" : results
+			"names" : names,
+			"clubs" : clubs,
+			"img_ulrs" : img_ulrs, 
+			"datetimes" : datetimes,
 		}
+
 
 		data = json.dumps(jsonresults)
 	
@@ -153,7 +164,7 @@ class ClubView(generic.ListView):
 	def get_context_data(self, **kwargs):
 
 		context = super().get_context_data(**kwargs)
-		
+
 		try:
 			club = Club.objects.filter(name=self.request.GET.get('club', None).replace("%20", " "))[0]
 			context['club'] = club

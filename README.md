@@ -8,7 +8,7 @@ Redacted settings.py for security.
 # Todo
 
 - [X] Add back button to event page
-- [ ] Add club info page
+- [X] Add club info page
 - [ ] Add filter by buttons
 - [ ] Add results handling for club search
 - [ ] Add 'followed' clubs functionality
@@ -20,5 +20,9 @@ Redacted settings.py for security.
 - [ ] Add navbar
 	- [ ] Calendar
 	- [ ] Browse Clubs
+	- [ ] Upcoming Events
 	- [ ] About
 	- [ ] Sign In
+- [ ] Add Upcoming events page
+- [X] Adjust event name css on event page
+- [ ] Add 'upcoming events' to club page

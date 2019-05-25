@@ -1,0 +1,135 @@
+#search-results {
+	display: none;
+	z-index: 1; 
+	position:absolute;
+	background-color: white; 
+	width: 329px;
+	border: 1px solid red;
+	margin-top: -1px;
+
+	-webkit-transition: all 0.8s;
+ 	transition: all 0.8s;
+}
+
+#search-content {
+	z-index: 1; 
+}
+
+
+.result-hr {
+  margin: 0; 
+}
+
+
+p {
+	margin: 0; 
+}
+
+
+
+.rtext {
+
+	font-size: 10px; 
+	padding: 0; 
+	margin: 0; 
+	line-height: 10px; 
+}
+
+.rname {
+	font-size: 14px; 
+	line-height: 14px;
+	padding-top: 5px; 
+}
+
+.result-div{
+	height: 60px; 
+}
+
+.search-img{
+	height: 60px;
+	width: 60px;
+	display: inline;
+	float: left;
+}
+
+#custom-search {
+display: inline;
+margin: 0;
+padding: 0;
+}
+
+#custom-search #search-query {
+  padding-left: 10px;
+  margin: 0px; 
+  width: 300px;
+  height: 30px;
+  border: 1px solid red;
+  background-color: transparent;
+  color: red;
+  font-size: 1.2em;
+  /*-webkit-transition: all 0.8s;
+  transition: all 0.8s;*/
+  margin-bottom: 0;
+  display: inline-block;
+  border-radius: 5px 0px 0px 5px; 
+}
+
+
+#custom-search #search-query:focus {
+  padding-left: 10px;
+  margin: 0px; 
+  width: 300px;
+  height: 30px;
+  border: 1px solid red;
+  background-color: transparent;
+  color: red;
+  font-size: 1.2em;
+ /* -webkit-transition: all 0.8s;
+  transition: all 0.8s;*/
+  margin-bottom: 0;
+  display: inline-block;
+  border-radius: 5px 0px 0px 5px; 
+}
+
+
+
+input:focus, textarea:focus, select:focus, button:focus{
+  outline: none;
+ }
+
+
+#custom-search {
+	margin: 0;
+	padding: 0px;
+}
+
+
+#custom-search #search-button:hover {
+background-color: white;
+color: red; 
+}
+
+/*
+/* Font Awesome Icon Style */
+#custom-search #search-button {
+	vertical-align: top;
+	height: 30px; 
+	background-color: red;
+	margin-left: -5px;
+	border: 1px solid red;
+	border-radius: 0px 5px 5px 0px; 
+}
+
+/* Font Awesome Icon Style */
+#custom-search #search-button:hover i {
+	/*margin-left:-13px;*/
+	color:red;
+
+}
+
+/* Font Awesome Icon Style */
+#custom-search #search-button i {
+	/*margin-left:-13px;*/
+	color:white;
+/*	height: 10px; */
+}
