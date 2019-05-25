@@ -41,12 +41,14 @@ def searchEvents(request):
 		events = Event.objects.filter(name__icontains=q)
 		names = []
 		clubs = []
+		event_urls = []
 		img_ulrs = []
 		datetimes =  []
 
 		for event in events:
 			names.append(event.name)
 			clubs.append(event.club.name)
+			event_urls.append(f"/event/?event={event.id}")
 			img_ulrs.append(event.club.club_image.url)
 			datetimes.append(f"{event.day} - {event.start_time} - {event.end_time}")
 
@@ -54,6 +56,7 @@ def searchEvents(request):
 		jsonresults = {
 			"names" : names,
 			"clubs" : clubs,
+			"event_urls" : event_urls,
 			"img_ulrs" : img_ulrs, 
 			"datetimes" : datetimes,
 		}

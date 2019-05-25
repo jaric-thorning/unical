@@ -18,6 +18,7 @@ $(function() {
 });
 
 
+
 $('#search-query').each(function() {
    var elem = $(this);
 
@@ -35,13 +36,14 @@ $('#search-query').each(function() {
        
        var names = []
        var clubs = []
+       var event_urls = []
        var img_ulrs = []
 	   var datetimes =  []
 
        var endpoint = '/api/searchEvents?term=' + elem.val()
 
        var num_results = 0
-       var max_results = 2
+       var max_results = 4
 
        if(elem.val() != ""){
 	       $.ajax({
@@ -51,6 +53,7 @@ $('#search-query').each(function() {
 			    success: function(data){
 			        names = data.names
 			        clubs = data.clubs
+			        event_urls = data.event_urls
 			        img_ulrs = data.img_ulrs
 			        datetimes = data.datetimes
 
@@ -67,14 +70,16 @@ $('#search-query').each(function() {
 				       		console.log("Updating result " + i)
 				       		$("#result" + i).css("display", "block")
 
+				       		
 				       		document.getElementById("result-title" + i).innerHTML = names[i]
 				       		document.getElementById("result-club" + i).innerHTML = clubs[i]
 				       		document.getElementById("result-datetime" + i).innerHTML = datetimes[i]
 				       		document.getElementById("result-img" + i).src = img_ulrs[i]
+				       		document.getElementById("result-link" + i).href = event_urls[i]
 
 				       	}
 
-				       	for (; i < max_results; i++){
+				       	for (i = num_results; i < max_results; i++){
 				       		$("#result" + i).css("display", "none")
 
 				       	}
@@ -151,7 +156,7 @@ var span = document.getElementsByClassName("close")[0];
 		<div class="nav">
 			<h1 id="title1">unical</h1>
 		</div>
-	<hr id="headhr">
+		<hr id="headhr">
 	</div>
 	
 
@@ -228,27 +233,55 @@ var span = document.getElementsByClassName("close")[0];
 					<span><input type="text" name="search" id="search-query" placeholder="Search" />
 					<button id="search-button"><i class="fas fa-search"></i></button>
 					<div id="search-results"> 
-						<div id="result0">
-							<a href="/calendar"><img class="search-img" id="result-img0" src="{% static '/events/logo.png' %}"></a>
-							<div class="result-div">
-								<p class="rtext rname" id="result-title0">title</p>
-								<p class="rtext" id="result-club0">club</p>
-								<p class="rtext" id="result-datetime0">datetime</p>
+						<a href="/calendar" id="result-link0" class="rlink">
+							<div id="result0">
+								<img class="search-img" id="result-img0" src="{% static '/events/logo.png' %}">
+								<div class="result-div">
+									<p class="rtext rname" id="result-title0">title</p>
+									<p class="rtext" id="result-club0">club</p>
+									<p class="rtext" id="result-datetime0">datetime</p>
+								</div>
+								<hr class="result-hr">
+
 							</div>
-							<hr class="result-hr">
+						</a>
 
-						</div>
+						<a href="/calendar" id="result-link1" class="rlink">
+							<div id="result1">
+								<img class="search-img" id="result-img1" src="{% static '/events/logo.png' %}">
+								<div class="result-div">
+									<p class="rtext rname" id="result-title1">title</p>
+									<p class="rtext" id="result-club1">club</p>
+									<p class="rtext" id="result-datetime1">datetime</p>
+								</div>
+								<hr class="result-hr">
 
-						<div id="result1">
-							<a href="/calendar"><img class="search-img" id="result-img1" src="{% static '/events/logo.png' %}"></a>
-							<div class="result-div">
-								<p class="rtext rname" id="result-title1">title</p>
-								<p class="rtext" id="result-club1">club</p>
-								<p class="rtext" id="result-datetime1">datetime</p>
 							</div>
-							<hr class="result-hr">
+						</a>
 
-						</div>
+						<a href="/calendar" id="result-link2" class="rlink">
+							<div id="result2">
+								<img class="search-img" id="result-img2" src="{% static '/events/logo.png' %}">
+								<div class="result-div">
+									<p class="rtext rname" id="result-title2">title</p>
+									<p class="rtext" id="result-club2">club</p>
+									<p class="rtext" id="result-datetime2">datetime</p>
+								</div>
+								<hr class="result-hr">
+							</div>
+						</a>
+
+						<a href="/calendar" id="result-link3" class="rlink">
+							<div id="result3">
+								<img class="search-img" id="result-img3" src="{% static '/events/logo.png' %}">
+								<div class="result-div">
+									<p class="rtext rname" id="result-title3">title</p>
+									<p class="rtext" id="result-club3">club</p>
+									<p class="rtext" id="result-datetime3">datetime</p>
+								</div>
+								<hr class="result-hr">
+							</div>
+						</a>
 
 
 					</div>
