@@ -2,6 +2,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
 {% block content %}
 
 
@@ -16,49 +17,39 @@ function goBack() {
 </script>
 
 
-<div id = "container_id">
-
-	<div id="header">
-		<a href="/calendar"><img class="logo" src="{% static '/events/logo.png' %}"></a>
-		<div class="nav">
-			<h1 id="title1">unical</h1>
-		</div>
-	<hr id="headhr">
-	</div>
-	
 
 
-	<button onclick="goBack()" id="backBtn">< Back</button>
+<button onclick="goBack()" id="backBtn">< Back</button>
 
-	<!-- <div id="clubInfo"> -->
-		<div>
-			<p style="float: left;"><img class="clubIcon" src="{{ event.club.club_image.url }}"></p>
-			<h2 id="eventName">{{ event.name }}</h2>
-			<p class="eventInfo"><a href="/club/?club={{event.club.name}}">{{ event.club.name }}</a></p>
-		<!-- </div><br> -->
-		
-
-	</div>
-	<img id="eventImg" src="{{ event.event_image.url }}"><br>	
-	<hr>
-	<div id="clubInfo">
-		<img class="icon" src="{% static '/events/clock.png' %}"><p class="eventInfo">{{ event.day }} at {{ event.start_time }} - {{ event.end_time }}</p><br>
-		<img class="icon" src="{% static '/events/pin.png' %}"><p class="eventInfo">{{ event.location }}</p><br>
-		{% if event.price > 0 %}
-			<img class="icon" src="{% static '/events/ticket.png' %}"><p class="eventInfo">${{ event.price }}</p><br>
-		{% else %}
-			<img class="icon" src="{% static '/events/ticket.png' %}"><p class="eventInfo">Free</p><br>
-		{% endif %}
-		<img class="icon" src="{% static '/events/fb.png' %}"><p class="eventInfo"><a href="{{ event.fb }}">{{ event.fb }}</a></p><br>
-
-		<hr>
-
-		<h2>About</h2>
-		<p id = "description">{{ event.description }} </p>
-	</div>
-
-	
+<!-- <div id="clubInfo"> -->
+	<div>
+		<p style="float: left;"><img class="clubIcon" src="{{ event.club.club_image.url }}"></p>
+		<h2 id="eventName">{{ event.name }}</h2>
+		<p class="eventInfo"><a href="/club/?club={{event.club.name}}">{{ event.club.name }}</a></p>
+	<!-- </div><br> -->
 	
 
 </div>
+<img id="eventImg" src="{{ event.event_image.url }}"><br>	
+<hr>
+<div id="clubInfo">
+	<img class="icon" src="{% static '/events/clock.png' %}"><p class="eventInfo">{{ event.day }} at {{ event.start_time }} - {{ event.end_time }}</p><br>
+	<img class="icon" src="{% static '/events/pin.png' %}"><p class="eventInfo">{{ event.location }}</p><br>
+	{% if event.price > 0 %}
+		<img class="icon" src="{% static '/events/ticket.png' %}"><p class="eventInfo">${{ event.price }}</p><br>
+	{% else %}
+		<img class="icon" src="{% static '/events/ticket.png' %}"><p class="eventInfo">Free</p><br>
+	{% endif %}
+	<img class="icon" src="{% static '/events/fb.png' %}"><p class="eventInfo"><a href="{{ event.fb }}">{{ event.fb }}</a></p><br>
+
+	<hr>
+
+	<h2>About</h2>
+	<p id = "description">{{ event.description }} </p>
+</div>
+<button onclick="goBack()" id="backBtn">< Back</button>
+
+
+
+
 {% endblock %}

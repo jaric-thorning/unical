@@ -208,10 +208,7 @@ class CalendarView(generic.ListView):
 			cal = EventCalendarWeek()
 			# Call the format month method, which returns our calendar as a table
 			html_cal = cal.formatweekfull(d.year, d.month, d.day, withyear=True)
-		
-
-
-		
+			
 		
 		context['calendar'] = mark_safe(html_cal)
 

@@ -28,9 +28,37 @@ $(document).ready(function(){
 </script>
 
 <body>
-  {% block content %}
-  {% endblock %}
+
+
+  <div id = "container_id">
+    <div id="header">
+      <a href="/calendar"><img class="logo" src="{% static '/events/logo.png' %}"></a>
+      <div class="nav">
+        <a href="/calendar"><h1 id="title1">unical</h1></a>
+      </div>
+      
+    </div>
+
+    <div id="nav">
+    <ul>
+      <li><a href="/calendar">Calendar</a></li>
+      <!-- <li><a href="#">Browse Clubs</a></li>
+      <li><a href="#">FAQs</a></li>
+      <li><a href="#">Contact</a></li> -->
+      <li style="float:right;"><a href="#">Logout</a></li>
+      </ul>
+    </div>
+    {% block content %}
+    {% endblock %}
+
+
+  </div>
+
 </body>
+
+<div>
+  <p>Footer</p>
+</div>
 
 
 </html>

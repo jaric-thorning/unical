@@ -149,25 +149,9 @@ var span = document.getElementsByClassName("close")[0];
 
 {% block content %}
 
-<div id = "container_id">
 
-	<div id="header">
-		<a href="/calendar"><img class="logo" src="{% static '/events/logo.png' %}"></a>
-		<div class="nav">
-			<h1 id="title1">unical</h1>
-		</div>
-		
-	</div>
 
-	<div id="nav">
-	<ul>
-		<li><a href="#">Calendar</a></li>
-		<li><a href="#">Browse Clubs</a></li>
-		<li><a href="#">FAQs</a></li>
-		<li><a href="#">Contact</a></li>
-		<li><a href="#">Login</a></li>
-		</ul>
-	</div>
+	
 
 	<!-- <div class="navbar">
 		<ul>
@@ -181,170 +165,168 @@ var span = document.getElementsByClassName("close")[0];
 
 	
 
-	<div id="left">
+<div id="left">
 
-		<div id=miniCalendar>
+	<div id=miniCalendar>
 
-			<p id="miniCalendarMonth" style="float: left;">{{ miniCalendarMonth }}</p>
+		<p id="miniCalendarMonth" style="float: left;">{{ miniCalendarMonth }}</p>
 
-			<div id='minibuttonbox' style="float: right;"> 
-				<a class="minibtn" href="{% url 'calendar' %}?{{ prev_month }}"><</a>
-				<a class="minibtn" href="{% url 'calendar' %}?{{ next_month }}">></a>
-			</div>
-
-			<table id="miniCalendarTable">
-			    <thead>
-			        <tr class="miniCalendarEntry">
-			            {% for k in miniCalendarHeader %}
-			            <th>{{k}}</th>
-			            {% endfor %}
-			        </tr>
-			    </thead>
-			    <tbody>
-			        {% for r in miniCalendarRows %}
-			            <tr class="miniCalendarEntry">
-			                <td class='date'>{{r.mon}}</td>
-			                <td class='date'>{{r.tue}}</td>
-			                <td class='date'>{{r.wed}}</td>
-			                <td class='date'>{{r.thu}}</td>
-			                <td class='date'>{{r.fri}}</td>
-			                <td class='date'>{{r.sat}}</td>
-			                <td class='date'>{{r.sun}}</td>
-			            </tr>
-			        {% endfor %}
-			    </tbody>
-			</table>
-
+		<div id='minibuttonbox' style="float: right;"> 
+			<a class="minibtn" href="{% url 'calendar' %}?{{ prev_month }}"><</a>
+			<a class="minibtn" href="{% url 'calendar' %}?{{ next_month }}">></a>
 		</div>
-		
-		<hr>
 
-			
-	<!-- 	<p id=result>Test </p>
-	
-	
-		<table class="table">
+		<table id="miniCalendarTable">
 		    <thead>
-		        <tr>
-		            {% for k in clubTableHeader %}
+		        <tr class="miniCalendarEntry">
+		            {% for k in miniCalendarHeader %}
 		            <th>{{k}}</th>
 		            {% endfor %}
 		        </tr>
 		    </thead>
 		    <tbody>
-		        {% for r in clubTableRows %}
-		            <tr class="clubEntry">
-		                <td id="myBtn2">{{r.name}}</td>
+		        {% for r in miniCalendarRows %}
+		            <tr class="miniCalendarEntry">
+		                <td class='date'>{{r.mon}}</td>
+		                <td class='date'>{{r.tue}}</td>
+		                <td class='date'>{{r.wed}}</td>
+		                <td class='date'>{{r.thu}}</td>
+		                <td class='date'>{{r.fri}}</td>
+		                <td class='date'>{{r.sat}}</td>
+		                <td class='date'>{{r.sun}}</td>
 		            </tr>
 		        {% endfor %}
 		    </tbody>
-		</table> -->
+		</table>
 
-
+	</div>
 	
-	</div>
-
-
-	<div id="right">	
-
-		<div id='buttonbox'> 
-
-				<div id="custom-search">
-					<span><input type="text" name="search" id="search-query" placeholder="Search" />
-					<button id="search-button"><i class="fas fa-search"></i></button>
-					<div id="search-results"> 
-						<a href="/calendar" id="result-link0" class="rlink">
-							<div id="result0">
-								<img class="search-img" id="result-img0" src="{% static '/events/logo.png' %}">
-								<div class="result-div">
-									<p class="rtext rname" id="result-title0">title</p>
-									<p class="rtext" id="result-club0">club</p>
-									<p class="rtext" id="result-datetime0">datetime</p>
-								</div>
-								<hr class="result-hr">
-
-							</div>
-						</a>
-
-						<a href="/calendar" id="result-link1" class="rlink">
-							<div id="result1">
-								<img class="search-img" id="result-img1" src="{% static '/events/logo.png' %}">
-								<div class="result-div">
-									<p class="rtext rname" id="result-title1">title</p>
-									<p class="rtext" id="result-club1">club</p>
-									<p class="rtext" id="result-datetime1">datetime</p>
-								</div>
-								<hr class="result-hr">
-
-							</div>
-						</a>
-
-						<a href="/calendar" id="result-link2" class="rlink">
-							<div id="result2">
-								<img class="search-img" id="result-img2" src="{% static '/events/logo.png' %}">
-								<div class="result-div">
-									<p class="rtext rname" id="result-title2">title</p>
-									<p class="rtext" id="result-club2">club</p>
-									<p class="rtext" id="result-datetime2">datetime</p>
-								</div>
-								<hr class="result-hr">
-							</div>
-						</a>
-
-						<a href="/calendar" id="result-link3" class="rlink">
-							<div id="result3">
-								<img class="search-img" id="result-img3" src="{% static '/events/logo.png' %}">
-								<div class="result-div">
-									<p class="rtext rname" id="result-title3">title</p>
-									<p class="rtext" id="result-club3">club</p>
-									<p class="rtext" id="result-datetime3">datetime</p>
-								</div>
-								<hr class="result-hr">
-							</div>
-						</a>
-
-
-					</div>
-					<!-- <input type="submit" value="Submit" style="display: none;"> -->
-				</div>
-			   
-
-			<!-- <div class="ui-widget" style="float: left">
-
-					<input id="searchBar" placeholder="Search Clubs">
-			</div> -->
-
-
-			{% if prev_month %}
-			<div id="monthbtns">
-				<a class="monthButton" href="{% url 'calendar' %}?{{ switch_view }}"> Week<br>View </a>
-				<a class="monthButton" href="{% url 'calendar' %}?{{ prev_month }}"> Previous<br>Month </a>
-				<a class="monthButton" href="{% url 'calendar' %}?{{ next_month }}"> Next<br>Month </a>
-
-			</div>
-			{% else %}
-			<div id="monthbtns">
-				<a class="monthButton" href="{% url 'calendar' %}?{{ switch_view }}"> Month<br>View </a>
-				<a class="monthButton" href="{% url 'calendar' %}?{{ prev_week }}&week=1"> Previous<br>Week </a>
-				<a class="monthButton" href="{% url 'calendar' %}?{{ next_week }}&week=1"> Next<br>Week </a>
-
-			</div>
-			{% endif %}
-
-			
-			
-			
-		</div>
-
-
-		<div class = "calendarBlock">
-			{{ calendar }}
-		</div>
-
-	</div>
-
 	<hr>
 
+			
+	<!-- 	<p id=result>Test </p> -->
+	
+	
+	<table class="table">
+	    <thead>
+	        <tr>
+	            {% for k in clubTableHeader %}
+	            <th>{{k}}</th>
+	            {% endfor %}
+	        </tr>
+	    </thead>
+	    <tbody>
+	        {% for r in clubTableRows %}
+	            <tr class="clubEntry">
+	                <td id="myBtn2">{{r.name}}</td>
+	            </tr>
+	        {% endfor %}
+	    </tbody>
+	</table>
+
+
+
 </div>
+
+
+<div id="right">	
+
+	<div id='buttonbox'> 
+
+			<div id="custom-search">
+				<span><input type="text" name="search" id="search-query" placeholder="Search" />
+				<button id="search-button"><i class="fas fa-search"></i></button>
+				<div id="search-results"> 
+					<a href="/calendar" id="result-link0" class="rlink">
+						<div id="result0">
+							<img class="search-img" id="result-img0" src="{% static '/events/logo.png' %}">
+							<div class="result-div">
+								<p class="rtext rname" id="result-title0">title</p>
+								<p class="rtext" id="result-club0">club</p>
+								<p class="rtext" id="result-datetime0">datetime</p>
+							</div>
+							<hr class="result-hr">
+
+						</div>
+					</a>
+
+					<a href="/calendar" id="result-link1" class="rlink">
+						<div id="result1">
+							<img class="search-img" id="result-img1" src="{% static '/events/logo.png' %}">
+							<div class="result-div">
+								<p class="rtext rname" id="result-title1">title</p>
+								<p class="rtext" id="result-club1">club</p>
+								<p class="rtext" id="result-datetime1">datetime</p>
+							</div>
+							<hr class="result-hr">
+
+						</div>
+					</a>
+
+					<a href="/calendar" id="result-link2" class="rlink">
+						<div id="result2">
+							<img class="search-img" id="result-img2" src="{% static '/events/logo.png' %}">
+							<div class="result-div">
+								<p class="rtext rname" id="result-title2">title</p>
+								<p class="rtext" id="result-club2">club</p>
+								<p class="rtext" id="result-datetime2">datetime</p>
+							</div>
+							<hr class="result-hr">
+						</div>
+					</a>
+
+					<a href="/calendar" id="result-link3" class="rlink">
+						<div id="result3">
+							<img class="search-img" id="result-img3" src="{% static '/events/logo.png' %}">
+							<div class="result-div">
+								<p class="rtext rname" id="result-title3">title</p>
+								<p class="rtext" id="result-club3">club</p>
+								<p class="rtext" id="result-datetime3">datetime</p>
+							</div>
+							<hr class="result-hr">
+						</div>
+					</a>
+
+
+				</div>
+				<!-- <input type="submit" value="Submit" style="display: none;"> -->
+			</div>
+		   
+
+		<!-- <div class="ui-widget" style="float: left">
+
+				<input id="searchBar" placeholder="Search Clubs">
+		</div> -->
+
+
+		{% if prev_month %}
+		<div id="monthbtns">
+			<a class="monthButton" href="{% url 'calendar' %}?{{ switch_view }}"> Week<br>View </a>
+			<a class="monthButton" href="{% url 'calendar' %}?{{ prev_month }}"> Previous<br>Month </a>
+			<a class="monthButton" href="{% url 'calendar' %}?{{ next_month }}"> Next<br>Month </a>
+
+		</div>
+		{% else %}
+		<div id="monthbtns">
+			<a class="monthButton" href="{% url 'calendar' %}?{{ switch_view }}"> Month<br>View </a>
+			<a class="monthButton" href="{% url 'calendar' %}?{{ prev_week }}&week=1"> Previous<br>Week </a>
+			<a class="monthButton" href="{% url 'calendar' %}?{{ next_week }}&week=1"> Next<br>Week </a>
+
+		</div>
+		{% endif %}
+
+		
+		
+		
+	</div>
+
+
+	<div class = "calendarBlock">
+		{{ calendar }}
+	</div>
+
+</div>
+
+
 
 {% endblock %}
