@@ -160,6 +160,8 @@ var span = document.getElementsByClassName("close")[0];
 	</div>
 	
 
+	
+
 	<div id="left">
 
 		<div id=miniCalendar>
@@ -199,7 +201,7 @@ var span = document.getElementsByClassName("close")[0];
 		<hr>
 
 			
-		<p id=result>Test </p>
+	<!-- 	<p id=result>Test </p>
 	
 	
 		<table class="table">
@@ -217,11 +219,10 @@ var span = document.getElementsByClassName("close")[0];
 		            </tr>
 		        {% endfor %}
 		    </tbody>
-		</table>
+		</table> -->
 
 
-		<!-- Trigger/Open The Modal -->
-		<button id="myBtn">Open Modal</button>
+	
 	</div>
 
 
@@ -297,14 +298,14 @@ var span = document.getElementsByClassName("close")[0];
 
 			{% if prev_month %}
 			<div id="monthbtns">
-				<a class="monthButton" href="{% url 'calendar' %}?{{ switch_view }}"> Switch<br>View </a>
+				<a class="monthButton" href="{% url 'calendar' %}?{{ switch_view }}"> Week<br>View </a>
 				<a class="monthButton" href="{% url 'calendar' %}?{{ prev_month }}"> Previous<br>Month </a>
 				<a class="monthButton" href="{% url 'calendar' %}?{{ next_month }}"> Next<br>Month </a>
 
 			</div>
 			{% else %}
 			<div id="monthbtns">
-				<a class="monthButton" href="{% url 'calendar' %}?{{ switch_view }}"> Switch<br>View </a>
+				<a class="monthButton" href="{% url 'calendar' %}?{{ switch_view }}"> Month<br>View </a>
 				<a class="monthButton" href="{% url 'calendar' %}?{{ prev_week }}&week=1"> Previous<br>Week </a>
 				<a class="monthButton" href="{% url 'calendar' %}?{{ next_week }}&week=1"> Next<br>Week </a>
 
