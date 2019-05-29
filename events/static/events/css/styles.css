@@ -17,6 +17,14 @@ body {
    display: flex;
 }
 
+
+
+
+.calendarWeek{
+  height: 800px;
+
+}
+
 .header {
   width: 100%;
   margin: auto;
@@ -188,7 +196,9 @@ padding-top: 10px;
 
 .miniCalendarEntry{
   font-family: courier;
+
 }
+
 
 #eventImg{
   width: 100%;
@@ -281,6 +291,39 @@ padding-top: 10px;
 
 
 
+.calendar.week td {
+  width: 100px;
+  height: 600px;
+  padding: 20px 0px 0px 5px;
+}
+
+
+.calendarWeek {
+  font-size: 10px;
+  float: right;
+  width: 100%
+}
+
+.calendarWeek tr{
+  /*border: 1px solid black;*/
+  height: 10px; 
+  padding: 5px; 
+}
+
+.calendarWeek th {
+  padding: 5px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.calendarWeek td {
+  width: 100px;
+  height: 100px;
+  padding: 20px 0px 0px 5px;
+}
+
+
+
 .calendar {
   font-size: 10px;
   float: right;
@@ -309,6 +352,8 @@ padding-top: 10px;
 
 .date {
   font-size: 16px;
+  text-decoration: none; 
+  color: black; 
 }
 
 ul {

@@ -18,6 +18,7 @@ from django.urls import reverse
 from calendar import HTMLCalendar
 from django.utils.safestring import mark_safe
 from .utils import EventCalendar
+from .utils import EventCalendarWeek
 
 from .models import Event
 from .models import Club
@@ -99,11 +100,12 @@ class MiniCalendar(TemplateView):
 
 
 	def get_calendarRows(self,d):
-		first = d.replace(day=1)
+		dcopy = d
+		first = dcopy.replace(day=1)
 		days_in_month = calendar.monthrange(d.year, d.month)[1]
 		index = first.weekday()
 
-
+		print(f"First index is {index}")
 		rows = [[]]
 		current_row = 0
 
@@ -117,7 +119,7 @@ class MiniCalendar(TemplateView):
 				current_row += 1
 				rows.append([])
 
-			rows[current_row].append(str(i).zfill(2))
+			rows[current_row].append(mark_safe(f'<a href="/calendar/?date={d.year}-{d.month}-{str(i).zfill(2)}&week=1">{str(i).zfill(2)}</a>'))
 			index += 1
 
 		#pad end
@@ -190,51 +192,72 @@ class CalendarView(generic.ListView):
 		#use today's date for the calendar
 		#d = get_date(self.request.GET.get('day', None))
 
+		d = get_date(self.request.GET.get('date', None))
+		weekview = self.request.GET.get('week', None)
 
-		d = get_date(self.request.GET.get('month', None))
 		
-
-		
-
 		#Instantiate our calendar class with today's year and date
+		#cal = EventCalendar()
 		cal = EventCalendar()
 
 		# Call the format month method, which returns our calendar as a table
 		html_cal = cal.formatmonth(d.year, d.month, withyear=True)
-		#html_cal = html_cal.replace('<td ', '<td  width="150" height="150"')
-
-		
-		clubs = ["UQ Sailing Club", "HMNS"]
-
-		context['clubs'] = clubs
 
 
+		if(weekview):
+			cal = EventCalendarWeek()
+			# Call the format month method, which returns our calendar as a table
+			html_cal = cal.formatweekfull(d.year, d.month, d.day, withyear=True)
 		
 
+
+		
+		
 		context['calendar'] = mark_safe(html_cal)
-		context['prev_month'] = prev_month(d)
-		context['next_month'] = next_month(d)
+
+		if(weekview):
+			context['prev_week'] = prev_week(d)
+			context['next_week'] = next_week(d)
+			context['switch_view'] = mark_safe('date=' + str(d.year) + '-' + str(d.month) + '-' + str(d.day))
+		else:	
+			context['prev_month'] = prev_month(d)
+			context['next_month'] = next_month(d)
+			context['switch_view'] = mark_safe('date=' + str(d.year) + '-' + str(d.month) + '-' + str(d.day) + '&week=1')
+
+
 
 		context = {**context, **(ClubTable().get_context_data())}
-		context = {**context, **(MiniCalendar().get_context_data(self.request.GET.get('month', None)))}
+		context = {**context, **(MiniCalendar().get_context_data(self.request.GET.get('date', None)))}
 		return context
+
 
 
 def get_date(req_day):
 	if req_day:
-		year, month = (int(x) for x in req_day.split('-'))
-		return date(year, month, day=1)
+		year, month, day = (int(x) for x in req_day.split('-'))
+		return date(year, month, day)
 	return datetime.today()
+
+def prev_week(d):
+	new_date = d - timedelta(days=7)
+	date = 'date=' + str(new_date.year) + '-' + str(new_date.month) + '-' + str(new_date.day)
+	return date
+
+def next_week(d):
+	new_date = d + timedelta(days=7)
+	date = 'date=' + str(new_date.year) + '-' + str(new_date.month) + '-' + str(new_date.day)
+	return date
+
 
 def prev_month(d):
 	first = d.replace(day=1)
 	prev_month = first - timedelta(days=1)
-	month = 'month=' + str(prev_month.year) + '-' + str(prev_month.month)
-	return month
+	date = 'date=' + str(prev_month.year) + '-' + str(prev_month.month) + '-' + '01'
+	return date
 
 def next_month(d):
 	days_in_month = calendar.monthrange(d.year, d.month)[1]
 	last = d.replace(day=days_in_month)
 	next_month = last + timedelta(days=1)
-	month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
-	return month
+	date = 'date=' + str(next_month.year) + '-' + str(next_month.month) + '-' + '01'
+	return date
