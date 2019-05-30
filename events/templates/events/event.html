@@ -9,30 +9,72 @@
 <script>
 {% block jquery %}
 
+var btnState = 0
+
 function goBack() {
   window.history.back();
 }
 
+function attend(button) {
+
+  var btn = document.getElementById("interestedBtn")
+
+
+  if (btnState == 0){
+  	 if(button == "ignore"){
+  	 	btn.innerHTML = "&#10007; Ignore"
+	  } else if(button	== "going"){
+	  	btn.innerHTML = "&#10004; Going"
+	  } else if(button == "interested"){
+	  	btn.innerHTML = "&#10004; Interested"
+  	  }
+
+  	  $("#ignoreBtn").css("display", "none");
+  	  $("#goingBtn").css("display", "none");
+  	  
+
+  	btnState = 1;
+  } else {
+
+  	btn.innerHTML = "&#10004; Interested"
+  	$("#ignoreBtn").css("display", "block");
+  	$("#goingBtn").css("display", "block");
+
+
+  	btnState = 0;
+
+
+  }
+}
+
+
 {% endblock %}
 </script>
 
+<button onclick="goBack()" id="backBtn">< Back to Calendar</button>
 
+<div style="padding-left: 200px; padding-right: 200px; ">
 
-
-<button onclick="goBack()" id="backBtn">< Back</button>
 
 <!-- <div id="clubInfo"> -->
 	<div>
 		<p style="float: left;"><img class="clubIcon" src="{{ event.club.club_image.url }}"></p>
 		<h2 id="eventName">{{ event.name }}</h2>
 		<p class="eventInfo"><a href="/club/?club={{event.club.name}}">{{ event.club.name }}</a></p>
-	<!-- </div><br> -->
+	</div><br>
 	
 
+<div>
+	<img id="eventImg" src="{{ event.event_image.url }}"><br>	
 </div>
-<img id="eventImg" src="{{ event.event_image.url }}"><br>	
+
 <hr>
 <div id="clubInfo">
+	<button onclick="attend('ignore')" id="ignoreBtn" style="min-width: 100px; float: right; margin-right: 20px; ">&#10007; Ignore</button>
+	<button onclick="attend('going')" id="goingBtn" style="min-width: 100px; float: right; margin-right: 20px; ">&#10004; Going</button>
+	<button onclick="attend('interested')" id="interestedBtn" style="min-width: 100px; float: right; margin-right: 20px; ">&#10004; Interested</button>
+	
+	
 	<img class="icon" src="{% static '/events/clock.png' %}"><p class="eventInfo">{{ event.day }} at {{ event.start_time }} - {{ event.end_time }}</p><br>
 	<img class="icon" src="{% static '/events/pin.png' %}"><p class="eventInfo">{{ event.location }}</p><br>
 	{% if event.price > 0 %}
@@ -47,9 +89,9 @@ function goBack() {
 	<h2>About</h2>
 	<p id = "description">{{ event.description }} </p>
 </div>
-<button onclick="goBack()" id="backBtn">< Back</button>
 
-
+</div>
+<button onclick="goBack()" id="backBtn">< Back to Calendar</button>
 
 
 {% endblock %}
