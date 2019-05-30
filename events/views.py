@@ -170,9 +170,31 @@ class ClubView(generic.ListView):
 
 		context = super().get_context_data(**kwargs)
 
+
+
+		
+		events = []
+
 		try:
 			club = Club.objects.filter(name=self.request.GET.get('club', None).replace("%20", " "))[0]
+
+			eventObjects = Event.objects.filter(club__exact=club.name)
+
+			print(eventObjects)
+
+			for event in eventObjects:
+
+				html = f'<div style="display: inline-block; margin: 0; vertical-align: top;">'
+				html += f'<a href="/event/?event={event.id}"><img src="{event.event_image.url}" style="width: 100px; top:0; margin:0;vertical-align: top;"></div>'
+				html+= f'<div style="padding-left: 10px; display: inline-block; bottom: 0; margin: 0;">{event.name}'
+				html += f'<br>{event.day} at {event.start_time} - {event.end_time}</div></a>'
+				print(html)
+				events.append(mark_safe(html))
+		
+
+
 			context['club'] = club
+			context['events'] = events
 
 		except Exception as e:
 			raise Http404(f"Club does not exist")

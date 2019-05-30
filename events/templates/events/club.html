@@ -12,23 +12,31 @@ function goBack() {
   window.history.back();
 }
 
+var btnState = 0; 
+
+function follow() {
+
+  var btn = document.getElementById("followBtn");
+
+  if (btnState == 0){
+
+  	 	btn.innerHTML = "&#9733; Follow";
+  		btnState = 1;
+	} else {
+
+  		btn.innerHTML = "&#9733; Following";  	
+  		btnState = 0;
+
+  		}
+	}
+
 {% endblock %}
 </script>
 
 
-<div id = "container_id">
+<button onclick="goBack()" id="backBtn">< Back</button>
+<div style="padding-left: 200px; padding-right: 200px; ">
 
-	<div id="header">
-		<a href="/calendar"><img class="logo" src="{% static '/events/logo.png' %}"></a>
-		<div class="nav">
-			<h1 id="title1">unical</h1>
-		</div>
-	<hr id="headhr">
-	</div>
-	
-
-
-	<button onclick="goBack()" id="backBtn">< Back</button>
 
 	<!-- <div id="clubInfo"> -->
 		<div>
@@ -42,6 +50,7 @@ function goBack() {
 	<img id="eventImg" src="{{ club.cover_image.url }}"><br>	
 	<hr>
 	<div id="clubInfo">
+		<button onclick="follow()" id="followBtn" style="min-width: 100px; float: right; margin-right: 20px; ">&#9733; Follow</button>
 		<img class="icon" src="{% static '/events/fb.png' %}"><p class="eventInfo"><a href="https://www.facebook.com/{{ club.fb }}">{{ club.fb }}</a></p><br>
 		<img class="icon" src="{% static '/events/web.png' %}"><p class="eventInfo"><a href="{{ club.web }}">{{ club.web }}</a></p><br>
 		<img class="icon" src="{% static '/events/instagram.png' %}"><p class="eventInfo"><a href="https://www.instagram.com/{{ club.instagram }}">@{{ club.instagram }}</a></p><br>
@@ -52,12 +61,20 @@ function goBack() {
 
 		<h2>About</h2>
 		<p id = "description">{{ club.description }} </p>
+		<h2>Upcoming Events</h2>
+		<div>
+			{% if events %}
+			{% for event in events %}
+			{{ event }}
+			{% endfor %}
 
+			{% else %}
+			<p> No Upcoming Events</p>
+			{% endif %}
+
+		</div>
 	</div>
 
-	
-
-
-
 </div>
+<button onclick="goBack()" id="backBtn">< Back</button>
 {% endblock %}
