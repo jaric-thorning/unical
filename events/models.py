@@ -22,7 +22,7 @@ class Club(models.Model):
 	location = models.CharField(u'Location', max_length=100, help_text = u'Club Location', blank=True, null=False)
 	web = models.CharField(u'Website', max_length=100, help_text = u'Website Link', blank=True, null=False)
 	email = models.CharField(u'Email', max_length=100, help_text = u'Email Link', blank=True, null=False)
-
+	followed = models.BooleanField(u'Followed', help_text=u'Followed', blank=False, null=True)
 
 class Event(models.Model):
 	id = models.AutoField(primary_key=True)
@@ -35,7 +35,8 @@ class Event(models.Model):
 	price = models.DecimalField(u'Price', max_digits=6, decimal_places=2, help_text=u'Price')
 	fb = models.CharField(u'Facebook Event', max_length=100, help_text = u'Event Link', blank=True, null=False)
 	event_image = models.ImageField(upload_to='images/', max_length=100, blank=False, null=True)
-	description = models.TextField(u'Description', help_text=u'Description', blank=True, null=True)
+	description = models.TextField(u'Description', help_text=u'Description', blank=True, null=False, default=False)
+
 
 	class Meta:
 		verbose_name = u'Scheduling'

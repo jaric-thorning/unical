@@ -232,18 +232,32 @@ class CalendarView(generic.ListView):
 			html_cal = cal.formatweekfull(d.year, d.month, d.day, withyear=True)
 			
 		
+		followedClubsObjects = Club.objects.filter(followed=1)
+
+		followedClubs = [] 
+
+		for club in followedClubsObjects:
+
+			html = f'<tr class="clubEntry"><td><a href="/club/?club={club.name}">{club.name}</a></td></tr>'
+			followedClubs.append(mark_safe(html))
+
+		context['followedClubs'] = followedClubs
+
 		context['calendar'] = mark_safe(html_cal)
 
 		if(weekview):
 			context['prev_week'] = prev_week(d)
 			context['next_week'] = next_week(d)
 			context['switch_view'] = mark_safe('date=' + str(d.year) + '-' + str(d.month) + '-' + str(d.day))
+
 		else:	
 			context['prev_month'] = prev_month(d)
 			context['next_month'] = next_month(d)
 			context['switch_view'] = mark_safe('date=' + str(d.year) + '-' + str(d.month) + '-' + str(d.day) + '&week=1')
 
-
+		today = datetime.today()
+		context['today'] = mark_safe('date=' + str(today.year) + '-' + str(today.month) + '-' + str(today.day))
+		context['today_week'] = mark_safe('date=' + str(today.year) + '-' + str(today.month) + '-' + str(today.day) + '&week=1')
 
 		context = {**context, **(ClubTable().get_context_data())}
 		context = {**context, **(MiniCalendar().get_context_data(self.request.GET.get('date', None)))}

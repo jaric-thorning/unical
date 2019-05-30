@@ -432,9 +432,10 @@ ul {
   border: 1px solid black;
 }
 
-#buttonbox {
+.buttonbox {
   /*float: right; */
   width: 100%;
+  margin-top: 10px; 
 }
 
 

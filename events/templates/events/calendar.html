@@ -210,16 +210,12 @@ var span = document.getElementsByClassName("close")[0];
 	<table class="table">
 	    <thead>
 	        <tr>
-	            {% for k in clubTableHeader %}
-	            <th>{{k}}</th>
-	            {% endfor %}
+	            <th>Followed Clubs</th>
 	        </tr>
 	    </thead>
 	    <tbody>
-	        {% for r in clubTableRows %}
-	            <tr class="clubEntry">
-	                <td id="myBtn2">{{r.name}}</td>
-	            </tr>
+	        {% for club in followedClubs %}
+	            {{ club }}
 	        {% endfor %}
 	    </tbody>
 	</table>
@@ -231,7 +227,19 @@ var span = document.getElementsByClassName("close")[0];
 
 <div id="right">	
 
-	<div id='buttonbox'> 
+	<div class='buttonbox'>
+		{% if prev_month %}
+		<a class="monthButton" href="{% url 'calendar' %}?{{ switch_view }}"> Week<br>View </a>
+		<a class="monthButton" href="{% url 'calendar' %}?{{ today }}">Show<br>Today</a>
+		{% else %}
+		<a class="monthButton" href="{% url 'calendar' %}?{{ switch_view }}"> Month<br>View </a>
+		<a class="monthButton" href="{% url 'calendar' %}?{{ today_week }}">Show<br>Today</a>
+		{% endif %}
+		
+
+	</div>
+
+	<div class='buttonbox'> 
 
 			<div id="custom-search">
 				<span><input type="text" name="search" id="search-query" placeholder="Search" />
@@ -298,17 +306,17 @@ var span = document.getElementsByClassName("close")[0];
 				<input id="searchBar" placeholder="Search Clubs">
 		</div> -->
 
+		
 
 		{% if prev_month %}
 		<div id="monthbtns">
-			<a class="monthButton" href="{% url 'calendar' %}?{{ switch_view }}"> Week<br>View </a>
+			
 			<a class="monthButton" href="{% url 'calendar' %}?{{ prev_month }}"> Previous<br>Month </a>
 			<a class="monthButton" href="{% url 'calendar' %}?{{ next_month }}"> Next<br>Month </a>
 
 		</div>
 		{% else %}
 		<div id="monthbtns">
-			<a class="monthButton" href="{% url 'calendar' %}?{{ switch_view }}"> Month<br>View </a>
 			<a class="monthButton" href="{% url 'calendar' %}?{{ prev_week }}&week=1"> Previous<br>Week </a>
 			<a class="monthButton" href="{% url 'calendar' %}?{{ next_week }}&week=1"> Next<br>Week </a>
 
