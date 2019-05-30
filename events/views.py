@@ -39,7 +39,7 @@ logger = logging.getLogger(__name__)
 def searchEvents(request):
 	if request.is_ajax():
 		q = request.GET.get('term', '')
-		events = Event.objects.filter(name__icontains=q)
+		events = Event.objects.filter(description__icontains=q)
 		names = []
 		clubs = []
 		event_urls = []
